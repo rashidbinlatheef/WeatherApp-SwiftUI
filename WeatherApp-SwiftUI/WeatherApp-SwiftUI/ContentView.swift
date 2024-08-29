@@ -18,74 +18,36 @@ struct ContentView: View {
                 Text("Cupertino, CA")
                     .font(.title)
                     .foregroundStyle(.white)
+                    .padding(.top, 20)
                 Spacer()
-                VStack {
-                    Image(systemName: "sunset")
+                VStack(spacing: 8){
+                    Image(systemName: "cloud.sun.fill")
+                        .renderingMode(.original)
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 100, height: 140)
-                    Text("76o")
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 180, height: 180)
+                    Text("76°")
                         .font(.title)
-                        .bold()
+                        .fontWeight(.medium)
                         .foregroundStyle(.white)
                 }
-                HStack (spacing: 10){
-                    VStack {
-                        Text("TUE")
-                        Image(systemName: "sunrise")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        Text("74o")
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                    }
-                    VStack {
-                        Text("TUE")
-                        Image(systemName: "sunrise")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        Text("74o")
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                    }
-                    VStack {
-                        Text("TUE")
-                        Image(systemName: "sunrise")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        Text("74o")
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                    }
-                    VStack {
-                        Text("TUE")
-                        Image(systemName: "sunrise")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        Text("74o")
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                    }
-                    VStack {
-                        Text("TUE")
-                        Image(systemName: "sunrise")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        Text("74o")
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                    }
+                .padding(.bottom, 40)
+                HStack(spacing: 20){
+                    DayWeatherView(day: "TUE", imageName: "snow", temperature: 15)
+                    DayWeatherView(day: "WED", imageName: "sunset.fill", temperature: 25)
+                    DayWeatherView(day: "THU", imageName: "cloud.sun.fill", temperature: 30)
+                    DayWeatherView(day: "FRI", imageName: "sun.max.fill", temperature: 40)
+                    DayWeatherView(day: "SAT", imageName: "wind.snow", temperature: -3)
                 }
                 Spacer()
-
-                Button("Change Time of Day") {
+                Button {
                     print("Buttn Tapped")
-                }.foregroundColor(.blue)
+                } label: {
+                    Text("Change Time of Day")
+                        .font(.headline)
+                        .padding()
+                }.background(.white)
+                    .cornerRadius(10)
                 Spacer()
             }
         }
@@ -94,4 +56,26 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct DayWeatherView: View {
+    let day: String
+    let imageName: String
+    let temperature: Int
+    
+    var body: some View {
+        VStack(spacing: 15) {
+            Text(day)
+                .font(.body)
+                .foregroundStyle(.white)
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
+            Text("\(temperature)°")
+                .font(.title3)
+                .foregroundStyle(.white)
+        }
+    }
 }
