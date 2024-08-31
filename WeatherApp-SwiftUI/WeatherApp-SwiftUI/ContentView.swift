@@ -16,9 +16,11 @@ struct ContentView: View {
         .init(day: "SAT", imageName: "wind.snow", temperature: -3)
     ]
     
+    @State var isNight: Bool = false
+    
     var body: some View {
         ZStack {
-            BackgroundView(colors: [.blue, .gray, .white])
+            BackgroundView(colors: isNight ? [.black, .gray] : [.blue, .green])
             VStack(spacing: 40) {
                 CityView(name: "Cupertino, CA")
                 Spacer()
@@ -27,7 +29,7 @@ struct ContentView: View {
                 WeekWeatherView(weathers: weathers)
                 Spacer()
                 Button {
-                    print("Buttn Tapped")
+                    isNight.toggle()
                 } label: {
                     PrimaryButton(title: "Change Time of Day")
                 }
