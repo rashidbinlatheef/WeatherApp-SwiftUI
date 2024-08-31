@@ -119,8 +119,9 @@ struct PrimaryButton: View {
     var body: some View {
         Text(title)
             .font(.headline)
+            .foregroundStyle(.blue)
             .padding()
-            .background(.white)
+            .background(.green.gradient)
             .cornerRadius(10)
     }
 }
