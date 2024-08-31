@@ -16,15 +16,15 @@ struct ContentView: View {
         .init(day: "SAT", imageName: "wind.snow", temperature: -3)
     ]
     
-    @State var isNight: Bool = false
+    @State var isNight: Bool = true
     
     var body: some View {
         ZStack {
-            BackgroundView(colors: isNight ? [.black, .gray] : [.blue, .green])
+            BackgroundView(isNight: isNight)
             VStack(spacing: 40) {
                 CityView(name: "Cupertino, CA")
                 Spacer()
-              TodayWeatherView(temparature: 34, imageName: "cloud.sun.fill")
+                TodayWeatherView(temparature: 34, imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill")
                 .padding(.bottom, 40)
                 WeekWeatherView(weathers: weathers)
                 Spacer()
@@ -44,10 +44,10 @@ struct ContentView: View {
 }
 
 private struct BackgroundView: View {
-    let colors: [Color]
+    let isNight: Bool
     
     var body: some View {
-        LinearGradient(colors: colors,
+        LinearGradient(colors: isNight ? [.black, .gray] : [.blue, .green],
                        startPoint: .topLeading,
                        endPoint: .bottomTrailing)
         .ignoresSafeArea(edges: .all)
@@ -71,7 +71,7 @@ private struct TodayWeatherView : View {
     var body: some View {
         VStack(spacing: 8){
             Image(systemName: imageName)
-                .renderingMode(.original)
+                .symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 180, height: 180)
@@ -92,7 +92,7 @@ private struct DayWeatherView: View {
                 .font(.body)
                 .foregroundStyle(.white)
             Image(systemName: dayWeather.imageName)
-                .renderingMode(.original)
+                .symbolRenderingMode(.multicolor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40, height: 40)
